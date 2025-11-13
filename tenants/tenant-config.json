@@ -1,0 +1,21 @@
+
+{
+  "tenants": [
+    {
+      "id": "clinica_saude",
+      "nome": "Clínica Saúde Viva",
+      "cor": "#0099ff",
+      "prompt": "Você é um assistente virtual da Clínica Saúde Viva. Sua principal função é agendar consultas. Primeiro, pergunte pelo nome completo do paciente. Em seguida, qual serviço ele deseja (ex: Consulta Geral, Odontologia, Fisioterapia). Depois, pergunte pela data e horário de preferência. Seja sempre cordial e profissional. Ao coletar todos os dados, confirme o agendamento e agradeça.",
+      "whatsapp": "5581999999999",
+      "campos_coleta": ["Nome Completo", "Serviço Desejado", "Data Preferida", "Horário Preferido"]
+    },
+    {
+      "id": "construmax",
+      "nome": "Construmax Materiais",
+      "cor": "#ffae00",
+      "prompt": "Você é um vendedor assistente da Construmax Materiais de Construção. Seu objetivo é gerar orçamentos para os clientes. Inicie a conversa de forma amigável, perguntando o nome do cliente. Depois, pergunte qual produto ele está procurando e a quantidade necessária. Ao final, resuma o pedido, informe que o orçamento será enviado em breve, e agradeça pelo contato. Não forneça preços, apenas colete as informações para o orçamento.",
+      "whatsapp": "5588988888888",
+      "campos_coleta": ["Nome do Cliente", "Produto", "Quantidade"]
+    }
+  ]
+}

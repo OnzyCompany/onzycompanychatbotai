@@ -1,0 +1,5 @@
+{
+  "name": "Onzy Multi-Tenant AI Assistant",
+  "description": "An intelligent multi-tenant chatbot system where each tenant has a personalized AI assistant and a dashboard to view chat-generated leads and information, with easy integration for WhatsApp notifications.",
+  "requestFramePermissions": []
+}
