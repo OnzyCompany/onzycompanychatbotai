@@ -1,7 +1,7 @@
 import { Lead } from '../types';
 import { db } from '../firebase/config';
-// FIX: Changed firebase/firestore to @firebase/firestore for consistency.
-import { collection, query, where, getDocs, updateDoc, addDoc, doc } from '@firebase/firestore';
+// Use modular 'firebase/firestore' import for Firebase v9+ SDK.
+import { collection, query, where, getDocs, updateDoc, addDoc, doc } from 'firebase/firestore';
 
 
 export async function saveLead(tenantDocId: string, data: Record<string, any>, sessionId: string | null): Promise<void> {
@@ -44,7 +44,6 @@ export async function getLeads(tenantDocId: string): Promise<Lead[]> {
   try {
     const leadsCollectionRef = collection(db, 'tenants', tenantDocId, 'leads');
     const snapshot = await getDocs(leadsCollectionRef);
-    // FIX: Correctly type the mapped document data as Lead.
     const leads = snapshot.docs.map((doc) => ({
       ...(doc.data()),
       docId: doc.id

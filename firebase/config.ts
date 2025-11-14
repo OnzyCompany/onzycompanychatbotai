@@ -1,7 +1,7 @@
-// FIX: Changed firebase/app to @firebase/app to resolve module export error.
-import { initializeApp } from '@firebase/app';
-// FIX: Changed firebase/firestore to @firebase/firestore for consistency with the app import fix.
-import { getFirestore } from '@firebase/firestore';
+// Use modular 'firebase/app' import for Firebase v9+ SDK.
+import { initializeApp } from 'firebase/app';
+// Use modular 'firebase/firestore' import for Firebase v9+ SDK.
+import { getFirestore } from 'firebase/firestore';
 
 // Configuração do Firebase fornecida pelo usuário.
 const firebaseConfig = {
@@ -16,5 +16,6 @@ const firebaseConfig = {
 // Inicializa o Firebase com a API modular v9
 const app = initializeApp(firebaseConfig);
 
-// Obtém uma instância do Firestore e a exporta para o resto da aplicação
+// Inicializa o Firestore imediatamente e o exporta como uma constante.
+// Isso garante que o serviço esteja disponível antes de ser usado.
 export const db = getFirestore(app);

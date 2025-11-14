@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Tenant, Lead } from '../types';
 import { sendToWhatsApp } from '../services/whatsappService';
 import { db } from '../firebase/config';
-// FIX: Changed firebase/firestore to @firebase/firestore for consistency.
-import { collection, query, orderBy, onSnapshot } from '@firebase/firestore';
+// Use modular 'firebase/firestore' import for Firebase v9+ SDK.
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 interface DashboardProps {
   tenant: Tenant;
@@ -21,7 +21,6 @@ const Dashboard: React.FC<DashboardProps> = ({ tenant }) => {
     const q = query(leadsCollectionRef, orderBy('timestamp', 'desc'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      // FIX: Correctly type the mapped document data as Lead.
       const tenantLeads = querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {

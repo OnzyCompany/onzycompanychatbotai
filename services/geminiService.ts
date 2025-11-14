@@ -1,8 +1,8 @@
-
 import { GoogleGenAI, Chat, Type } from "@google/genai";
 import { Tenant, ChatMode, GroundingSource } from '../types';
 import { saveLead } from './storageService';
 
+// The API key is injected by the environment.
 const API_KEY = process.env.API_KEY;
 
 let ai: GoogleGenAI | null = null;

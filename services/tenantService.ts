@@ -1,7 +1,7 @@
 import { Tenant } from '../types';
 import { db } from '../firebase/config';
-// FIX: Changed firebase/firestore to @firebase/firestore for consistency.
-import { collection, getDocs, doc, setDoc, addDoc, deleteDoc, writeBatch } from '@firebase/firestore';
+// Use modular 'firebase/firestore' import for Firebase v9+ SDK.
+import { collection, getDocs, doc, setDoc, addDoc, deleteDoc, writeBatch } from 'firebase/firestore';
 
 // Function to get all tenants from Firestore
 export async function getTenants(): Promise<Tenant[]> {
