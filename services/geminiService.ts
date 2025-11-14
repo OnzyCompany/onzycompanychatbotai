@@ -3,6 +3,7 @@ import { Tenant, ChatMode, GroundingSource } from '../types';
 import { saveLead } from './storageService';
 
 // The API key is injected by the environment.
+// FIX: Use process.env.API_KEY to get the API key as per Gemini API guidelines, which resolves the 'env' property error.
 const API_KEY = process.env.API_KEY;
 
 let ai: GoogleGenAI | null = null;
@@ -20,6 +21,7 @@ function getAiInstance(): GoogleGenAI | null {
     ai = new GoogleGenAI({ apiKey: API_KEY });
     return ai;
   }
+  // FIX: Updated error message to reference API_KEY.
   console.error("API_KEY environment variable not set. Gemini API functionality will be disabled.");
   return null;
 }
@@ -35,6 +37,7 @@ async function getChatResponse(
   const aiInstance = getAiInstance();
   if (!aiInstance) {
     return {
+      // FIX: Updated error message to reference API_KEY.
       text: "A configuração da API do Gemini não foi encontrada. Verifique se a chave de API (API_KEY) está configurada corretamente no ambiente."
     };
   }
