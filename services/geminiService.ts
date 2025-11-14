@@ -1,10 +1,16 @@
+// The triple-slash directive for vite/client was causing a resolution error,
+// likely due to a tsconfig.json misconfiguration. The directive has been
+// removed and a type assertion is used on import.meta.env as a workaround.
 import { GoogleGenAI, Chat, Type } from "@google/genai";
 import { Tenant, ChatMode, GroundingSource } from '../types';
 import { saveLead } from './storageService';
 
 // The API key is injected by the environment.
-// FIX: Use process.env.API_KEY to get the API key as per Gemini API guidelines, which resolves the 'env' property error.
-const API_KEY = process.env.API_KEY;
+// Vite exposes environment variables on the client through `import.meta.env`
+// and requires them to be prefixed with `VITE_`.
+// FIX: Use a type assertion to bypass TypeScript error about `import.meta.env`
+// when Vite client types are not correctly loaded.
+const API_KEY = (import.meta as any).env.VITE_API_KEY;
 
 let ai: GoogleGenAI | null = null;
 
@@ -21,8 +27,8 @@ function getAiInstance(): GoogleGenAI | null {
     ai = new GoogleGenAI({ apiKey: API_KEY });
     return ai;
   }
-  // FIX: Updated error message to reference API_KEY.
-  console.error("API_KEY environment variable not set. Gemini API functionality will be disabled.");
+  // Updated error message to reference the correct variable name in Vercel/Vite.
+  console.error("VITE_API_KEY environment variable not set. Gemini API functionality will be disabled.");
   return null;
 }
 
@@ -37,8 +43,8 @@ async function getChatResponse(
   const aiInstance = getAiInstance();
   if (!aiInstance) {
     return {
-      // FIX: Updated error message to reference API_KEY.
-      text: "A configuração da API do Gemini não foi encontrada. Verifique se a chave de API (API_KEY) está configurada corretamente no ambiente."
+      // Updated error message to reference the correct variable name for the user.
+      text: "A configuração da API do Gemini não foi encontrada. Verifique se a chave de API (VITE_API_KEY) está configurada corretamente no ambiente."
     };
   }
 

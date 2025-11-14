@@ -1,23 +1,24 @@
-import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
-    return {
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Create a separate chunk for Firebase, which is a large dependency.
+          if (id.includes('firebase')) {
+            return 'vendor-firebase';
+          }
+          // Create a chunk for other node_modules dependencies.
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
       },
-      plugins: [react()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-      },
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
-      }
-    };
+    },
+    chunkSizeWarningLimit: 600, // Slightly increase the warning limit as a safety margin.
+  },
 });
